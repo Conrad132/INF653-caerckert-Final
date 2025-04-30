@@ -1,7 +1,7 @@
 const State = require('../model/States');
 const statesData = require('../model/statesData.json');
 
-// Helper: get full state data with funfacts from MongoDB (if any)
+// get full state data with funfacts from MongoDB (if any)
 const getMergedStateData = async () => {
   const dbStates = await State.find();
   const dbMap = new Map(dbStates.map(s => [s.stateCode, s.funfacts]));
@@ -12,7 +12,7 @@ const getMergedStateData = async () => {
   });
 };
 
-// Helper: find one state by code
+// find one state by code
 const findState = async (code) => {
   const state = statesData.find(st => st.code === code.toUpperCase());
   if (!state) return null;
@@ -100,7 +100,7 @@ const createFunFact = async (req, res) => {
   }
 };
 
-// PATCH: Update specific fun fact
+// PUT: Update specific fun fact
 const updateFunFact = async (req, res) => {
   const { index, funfact } = req.body;
   const stateCode = req.params.state.toUpperCase();
