@@ -33,3 +33,5 @@
 20250504	14:54:09	8d600187-dcd3-4bb9-b7ac-a949b7757287	GET	undefined	/states/css/style.css
 20250504	14:54:14	2f77da5a-5106-401b-ae53-aef2362b19ed	GET	undefined	/states/?contig=false
 20250504	14:54:14	87faa929-22ac-4e09-9da8-70d47e7f7f08	GET	undefined	/states/css/style.css
+20250504	14:56:01	012c7cef-1410-40f5-9331-a33c0628c45e	GET	undefined	/states/GA/funfact
+20250504	15:03:58	289d3e8f-2386-4869-afdf-7796024373c0	GET	undefined	/states/GA/funfact
