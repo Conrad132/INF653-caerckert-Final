@@ -6,7 +6,7 @@ const validateStateCode = require('../middleware/validateStateCode'); // Import 
 
 // Serve index.html for root or /index.html
 router.get(/^\/$|\/index(\.html)?$/, (req, res) => {
-    res.sendFile(path.join(__dirname, '..', 'views', 'index.html'));
+    res.sendFile(path.join(__dirname, '..', 'public', 'index.html'));
 });
 
 // Apply validation middleware to routes that involve a state code
