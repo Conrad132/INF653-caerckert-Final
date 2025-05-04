@@ -15,4 +15,8 @@ router.post('/:state/funfact', controller.createFunFact);
 router.patch('/:state/funfact', controller.updateFunFact);
 router.delete('/:state/funfact', controller.deleteFunFact);
 
+router.get(/^\/$|\/index(.html)?/, (req, res) => {
+    res.sendFile(path.join(__dirname, '..', 'views', 'index.html'));
+});
+
 module.exports = router;
