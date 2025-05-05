@@ -4,47 +4,27 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>US States API</title>
-  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="/css/style.css" />
 </head>
 <body>
-  <div class="container">
-    <h1>Welcome to the US States REST API</h1>
-    <p>This API provides data about US States, including static information and dynamic fun facts stored in MongoDB.</p>
-    <button id="loadStatesBtn">Show All States</button>
-    <div id="statesContainer"></div>
-  </div>
+  <h1>Welcome to the US States REST API</h1>
+  <p>This API provides data about US States, including static information and dynamic fun facts stored in MongoDB.</p>
+
+  <button onclick="fetchStates()">List All States</button>
+  <ul id="stateList"></ul>
 
   <script>
-    document.getElementById('loadStatesBtn').addEventListener('click', async () => {
-      const container = document.getElementById('statesContainer');
-      container.innerHTML = '<p>Loading...</p>';
-
-      try {
-        const response = await fetch('/states');
-        const data = await response.json();
-
-        if (Array.isArray(data)) {
-          container.innerHTML = '';
-          data.forEach(state => {
-            const div = document.createElement('div');
-            div.classList.add('state-card');
-            div.innerHTML = `
-              <h2>${state.state} (${state.code})</h2>
-              <p><strong>Capital:</strong> ${state.capital_city}</p>
-              <p><strong>Nickname:</strong> ${state.nickname}</p>
-              <p><strong>Population:</strong> ${Number(state.population).toLocaleString()}</p>
-              <p><strong>Admission Date:</strong> ${state.admission_date}</p>
-              ${state.funfacts ? `<p><strong>Fun Facts:</strong><ul>${state.funfacts.map(f => `<li>${f}</li>`).join('')}</ul></p>` : ''}
-            `;
-            container.appendChild(div);
-          });
-        } else {
-          container.innerHTML = '<p>No state data found.</p>';
-        }
-      } catch (err) {
-        container.innerHTML = `<p>Error loading states: ${err.message}</p>`;
-      }
-    });
+    async function fetchStates() {
+      const res = await fetch('/states');
+      const states = await res.json();
+      const ul = document.getElementById('stateList');
+      ul.innerHTML = '';
+      states.forEach(state => {
+        const li = document.createElement('li');
+        li.textContent = `${state.state} (${state.code}) - Capital: ${state.capital_city}`;
+        ul.appendChild(li);
+      });
+    }
   </script>
 </body>
 </html>
