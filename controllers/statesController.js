@@ -1,7 +1,7 @@
 const State = require('../model/States');
 const statesData = require('../model/statesData.json');
 
-// get full state data with funfacts from MongoDB (if any)
+// get full state data with funfacts from MongoDB
 const getMergedStateData = async () => {
   const dbStates = await State.find();
   const dbMap = new Map(dbStates.map(s => [s.stateCode, s.funfacts]));
@@ -89,7 +89,11 @@ const createFunFact = async (req, res) => {
   const stateCode = req.params.state.toUpperCase();
   const funfacts = req.body.funfacts;
 
-  if (!funfacts || !Array.isArray(funfacts)) {
+  if (!funfacts) {
+    return res.status(400).json({ message: 'State fun facts value required' });
+  }
+
+  if (!Array.isArray(funfacts)) {
     return res.status(400).json({ message: 'State fun facts value must be an array' });
   }
 
@@ -110,20 +114,25 @@ const updateFunFact = async (req, res) => {
   const { index, funfact } = req.body;
   const stateCode = req.params.state.toUpperCase();
 
-  if (index === undefined || !funfact) {
-    return res.status(400).json({ message: 'State fun facts value required' });
+  if (index === undefined) {
+    return res.status(400).json({ message: 'State fun fact index value required' });
+  }
+
+  if (!funfact || typeof funfact !== 'string') {
+    return res.status(400).json({ message: 'State fun fact value required' });
   }
 
   const dbState = await State.findOne({ stateCode });
+  const stateInfo = statesData.find(st => st.code === stateCode);
+
   if (!dbState || !dbState.funfacts?.length) {
-    const stateInfo = statesData.find(st => st.code === stateCode);
     return res.status(404).json({ message: `No Fun Facts found for ${stateInfo?.state || stateCode}` });
   }
 
   const zeroIndex = index - 1;
+
   if (zeroIndex < 0 || zeroIndex >= dbState.funfacts.length) {
-    const stateInfo = statesData.find(st => st.code === stateCode);
-    return res.status(400).json({ message: `No Fun Facts found at that index for ${stateInfo?.state || stateCode}` });
+    return res.status(404).json({ message: `No Fun Fact found at that index for ${stateInfo?.state || stateCode}` });
   }
 
   dbState.funfacts[zeroIndex] = funfact;
@@ -141,15 +150,15 @@ const deleteFunFact = async (req, res) => {
   }
 
   const dbState = await State.findOne({ stateCode });
+  const stateInfo = statesData.find(st => st.code === stateCode);
+
   if (!dbState || !dbState.funfacts?.length) {
-    const stateInfo = statesData.find(st => st.code === stateCode);
     return res.status(404).json({ message: `No Fun Facts found for ${stateInfo?.state || stateCode}` });
   }
 
   const zeroIndex = index - 1;
   if (zeroIndex < 0 || zeroIndex >= dbState.funfacts.length) {
-    const stateInfo = statesData.find(st => st.code === stateCode);
-    return res.status(400).json({ message: `No Fun Facts found at that index for ${stateInfo?.state || stateCode}` });
+    return res.status(404).json({ message: `No Fun Fact found at that index for ${stateInfo?.state || stateCode}` });
   }
 
   dbState.funfacts.splice(zeroIndex, 1);
