@@ -4,13 +4,8 @@ const path = require('path');
 const controller = require('../controllers/statesController');
 const validateStateCode = require('../middleware/validateStateCode'); // Import the middleware
 
-// Serve index.html for root or /index.html
-router.get(/^\/$|\/index(\.html)?$/, (req, res) => {
-    res.sendFile(path.join(__dirname, '..', 'public', 'index.html'));
-});
-
 // Route to handle `/states` for getting all states
-router.get('/states', controller.getAllStates);
+router.get('/', controller.getAllStates);  // Changed this to '/'
 
 // Apply validation middleware to routes that involve a state code
 router.get('/:state', validateStateCode, controller.getState);
@@ -24,4 +19,10 @@ router.post('/:state/funfact', validateStateCode, controller.createFunFact);
 router.patch('/:state/funfact', validateStateCode, controller.updateFunFact);
 router.delete('/:state/funfact', validateStateCode, controller.deleteFunFact);
 
+// Serve index.html for root or /index.html
+router.get(/^\/$|\/index(\.html)?$/, (req, res) => {
+    res.sendFile(path.join(__dirname, '..', 'public', 'index.html'));
+});
+
 module.exports = router;
+
