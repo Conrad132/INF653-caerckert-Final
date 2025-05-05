@@ -9,6 +9,9 @@ router.get(/^\/$|\/index(\.html)?$/, (req, res) => {
     res.sendFile(path.join(__dirname, '..', 'public', 'index.html'));
 });
 
+// Route to handle `/states` for getting all states
+router.get('/states', controller.getAllStates);
+
 // Apply validation middleware to routes that involve a state code
 router.get('/:state', validateStateCode, controller.getState);
 router.get('/:state/funfact', validateStateCode, controller.getRandomFunFact);
