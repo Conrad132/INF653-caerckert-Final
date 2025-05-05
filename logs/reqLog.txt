@@ -58,3 +58,9 @@
 20250504	20:43:29	4674f0eb-dd18-4d47-be73-812b5daacac0	GET	undefined	/states
 20250504	20:43:35	6fa62769-2530-4903-bcb7-0706c48dcf85	GET	undefined	/states/?contig=true
 20250504	20:43:41	4c3475b4-843a-4a22-8044-cb5ebe3b35a0	GET	undefined	/states/?contig=false
+20250504	23:08:48	5412fe1f-5fc9-4b38-b561-c4c7a390504c	GET	undefined	/
+20250504	23:08:48	027e08b9-787a-410f-8139-e52763f9e6c7	GET	undefined	/css/style.css
+20250504	23:08:50	7d7d6844-0dc2-49bd-b866-4e783e2be699	GET	undefined	/states
+20250504	23:09:17	ffca339f-1db0-4ea6-9621-0b3ee54728c5	GET	undefined	/
+20250504	23:09:17	3142938b-a061-424e-adae-cb93a55023ae	GET	undefined	/css/style.css
+20250504	23:09:19	8ab8ae86-a9f2-4f27-9d67-c04f1b61eb2b	GET	undefined	/states
